@@ -19,8 +19,8 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@v10
         with:
-          root-reserve-mb: 30720
-          temp-reserve-mb: 10240
+          root-reserve-mb: 10240
+          temp-reserve-mb: 1024
           swap-size-mb: 4096
           remove-dotnet: true
           remove-android: true
@@ -120,7 +120,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v7
         with:
           version: "~> v2"
-          args: release --config .goreleaser.release.yml --release-notes /tmp/release-notes.md --timeout 120m
+          args: release --config .goreleaser.release.yml --release-notes /tmp/release-notes.md --timeout 120m --parallelism 2
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_LOGIN }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
