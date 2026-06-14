@@ -27,6 +27,11 @@ jobs:
           remove-haskell: true
           remove-codeql: true
           remove-docker-images: true
+      - name: Redirect caches to build volume
+        run: |
+          echo "GOPATH=$GITHUB_WORKSPACE/.go" >> $GITHUB_ENV
+          echo "GOCACHE=$GITHUB_WORKSPACE/.gocache" >> $GITHUB_ENV
+          echo "YARN_CACHE_FOLDER=$GITHUB_WORKSPACE/.yarn-cache" >> $GITHUB_ENV
       - name: Check branch
         run: echo "${{ github.ref_name }}" | grep -Pq '^release/v3\.\d+\.\d+$'
       - name: Get version
